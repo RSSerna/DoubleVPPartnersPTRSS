@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../constants/app_strings.dart';
+
 abstract class Failure extends Equatable {
   final String message;
   final String code;
@@ -13,28 +15,57 @@ abstract class Failure extends Equatable {
 
   @override
   List<Object?> get props => [message, code, stackTrace];
+
+  @override
+  String toString() => '$runtimeType: [$code] $message';
 }
 
 class ValidationFailure extends Failure {
   const ValidationFailure({
-    required super.message,
-    super.code = 'VALIDATION_ERROR',
+    String? message,
     super.stackTrace,
-  });
+  }) : super(
+          message: message ?? AppStrings.validationExceptionMessage,
+          code: AppStrings.validationErrorCode,
+        );
 }
 
 class StorageFailure extends Failure {
   const StorageFailure({
-    required super.message,
-    super.code = 'STORAGE_ERROR',
+    String? message,
     super.stackTrace,
-  });
+  }) : super(
+          message: message ?? AppStrings.storageExceptionMessage,
+          code: AppStrings.storageErrorCode,
+        );
 }
 
 class UnexpectedFailure extends Failure {
   const UnexpectedFailure({
-    required super.message,
-    super.code = 'UNEXPECTED_ERROR',
+    String? message,
     super.stackTrace,
-  });
+  }) : super(
+          message: message ?? AppStrings.unexpectedExceptionMessage,
+          code: AppStrings.unexpectedErrorCode,
+        );
+}
+
+class NetworkFailure extends Failure {
+  const NetworkFailure({
+    String? message,
+    super.stackTrace,
+  }) : super(
+          message: message ?? AppStrings.networkExceptionMessage,
+          code: AppStrings.networkErrorCode,
+        );
+}
+
+class NotFoundFailure extends Failure {
+  const NotFoundFailure({
+    String? message,
+    super.stackTrace,
+  }) : super(
+          message: message ?? AppStrings.notFoundExceptionMessage,
+          code: AppStrings.notFoundErrorCode,
+        );
 }

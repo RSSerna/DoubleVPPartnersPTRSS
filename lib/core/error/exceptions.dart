@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import '../constants/app_strings.dart';
+
 abstract class AppException implements Exception {
   final String message;
   final String code;
@@ -19,24 +21,50 @@ abstract class AppException implements Exception {
 
 class ValidationException extends AppException {
   ValidationException({
-    required super.message,
-    super.code = 'VALIDATION_ERROR',
+    String? message,
     super.data,
-  });
+  }) : super(
+          message: message ?? AppStrings.validationExceptionMessage,
+          code: AppStrings.validationErrorCode,
+        );
 }
 
 class StorageException extends AppException {
   StorageException({
-    required super.message,
-    super.code = 'STORAGE_ERROR',
+    String? message,
     super.data,
-  });
+  }) : super(
+          message: message ?? AppStrings.storageExceptionMessage,
+          code: AppStrings.storageErrorCode,
+        );
 }
 
 class UnexpectedException extends AppException {
   UnexpectedException({
-    required super.message,
-    super.code = 'UNEXPECTED_ERROR',
+    String? message,
     super.data,
-  });
+  }) : super(
+          message: message ?? AppStrings.unexpectedExceptionMessage,
+          code: AppStrings.unexpectedErrorCode,
+        );
+}
+
+class NetworkException extends AppException {
+  NetworkException({
+    String? message,
+    super.data,
+  }) : super(
+          message: message ?? AppStrings.networkExceptionMessage,
+          code: AppStrings.networkErrorCode,
+        );
+}
+
+class NotFoundException extends AppException {
+  NotFoundException({
+    String? message,
+    super.data,
+  }) : super(
+          message: message ?? AppStrings.notFoundExceptionMessage,
+          code: AppStrings.notFoundErrorCode,
+        );
 }

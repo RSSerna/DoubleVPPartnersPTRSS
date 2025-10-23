@@ -9,17 +9,14 @@ class ErrorHandler {
       case const (ValidationException):
         return ValidationFailure(
           message: exception.message,
-          code: exception.code,
         );
       case const (StorageException):
         return StorageFailure(
           message: exception.message,
-          code: exception.code,
         );
       default:
         return UnexpectedFailure(
           message: exception.message,
-          code: exception.code,
         );
     }
   }

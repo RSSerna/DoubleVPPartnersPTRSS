@@ -87,8 +87,8 @@ class _UserFormScreenState extends State<UserFormScreen> {
                   ListTile(
                     title: Text(
                       _selectedDate == null
-                          ? 'Seleccionar fecha de nacimiento'
-                          : 'Fecha: ${DateFormat('dd/MM/yyyy').format(_selectedDate!)}',
+                          ? AppStrings.birthDateLabel
+                          : '${AppStrings.selectDateLabel}${DateFormat(AppStrings.dateFormat).format(_selectedDate!)}',
                     ),
                     trailing: const Icon(Icons.calendar_today),
                     onTap: () => _selectDate(context),
@@ -100,7 +100,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
                           !FormValidators.isAdult(_selectedDate!)) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Debes ser mayor de 18 años'),
+                            content: Text(AppStrings.mustBeAdultError),
                           ),
                         );
                         return;
@@ -118,13 +118,12 @@ class _UserFormScreenState extends State<UserFormScreen> {
                       } else if (_selectedDate == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text(
-                                'Por favor seleccione una fecha de nacimiento'),
+                            content: Text(AppStrings.selectBirthDateError),
                           ),
                         );
                       }
                     },
-                    child: const Text('Continuar'),
+                    child: Text(AppStrings.continueButtonLabel),
                   ),
                 ],
               ),

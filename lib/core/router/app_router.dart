@@ -3,11 +3,12 @@ import 'package:go_router/go_router.dart';
 import '../../features/user_management/presentation/screens/address_form_screen.dart';
 import '../../features/user_management/presentation/screens/user_details_screen.dart';
 import '../../features/user_management/presentation/screens/user_form_screen.dart';
+import '../constants/app_strings.dart';
 
 class AppRouter {
-  static const String userForm = '/';
-  static const String userDetails = '/user-details';
-  static const String addressForm = '/address-form';
+  static const String userForm = AppStrings.userFormRoute;
+  static const String userDetails = AppStrings.userDetailsRoute;
+  static const String addressForm = AppStrings.addressFormRoute;
 
   static final router = GoRouter(
     routes: [
