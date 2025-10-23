@@ -14,6 +14,11 @@ class UserDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+          tooltip: AppStrings.backButtonLabel,
+        ),
         title: Text(AppStrings.userDetailsTitle),
       ),
       body: BlocBuilder<UserBloc, UserState>(
@@ -68,6 +73,11 @@ class UserDetailsScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.of(context).pop(),
+        label: Text(AppStrings.addAddressButtonLabel),
+        icon: const Icon(Icons.add_location),
       ),
     );
   }

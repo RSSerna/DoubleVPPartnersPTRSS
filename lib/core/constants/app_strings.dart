@@ -27,6 +27,13 @@ class AppStrings {
   static const String addressesLabel = 'Direcciones:';
   static const String selectDateLabel = 'Fecha: ';
 
+  // Hints
+  static const String countryHint = 'Ingrese el país';
+  static const String departmentHint = 'Ingrese el departamento';
+  static const String municipalityHint = 'Ingrese el municipio';
+  static const String firstNameHint = 'Ingrese su nombre';
+  static const String lastNameHint = 'Ingrese su apellido';
+
   // Validation Messages
   static const String enterNameError = 'Por favor ingrese su $fieldPlaceholder';
   static const String onlyLettersError =
@@ -56,7 +63,7 @@ class AppStrings {
   static const String saveError = 'Error al guardar';
   static const String deleteError = 'Error al eliminar';
   static const String updateError = 'Error al actualizar';
-  
+
   // Error Codes
   static const String validationErrorCode = 'VALIDATION_ERROR';
   static const String storageErrorCode = 'STORAGE_ERROR';
@@ -64,7 +71,7 @@ class AppStrings {
   static const String networkErrorCode = 'NETWORK_ERROR';
   static const String notFoundErrorCode = 'NOT_FOUND_ERROR';
   static const String authErrorCode = 'AUTH_ERROR';
-  
+
   // Exception Messages
   static const String validationExceptionMessage = 'Error de validación';
   static const String storageExceptionMessage = 'Error de almacenamiento';

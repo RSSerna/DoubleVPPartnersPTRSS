@@ -70,6 +70,8 @@ class _UserFormScreenState extends State<UserFormScreen> {
                   CustomFormField(
                     controller: _firstNameController,
                     label: AppStrings.firstNameLabel,
+                    hint: AppStrings.firstNameHint,
+                    icon: Icons.person,
                     validator: (value) => FormValidators.validateName(value),
                     textInputAction: TextInputAction.next,
                   ),
@@ -77,9 +79,11 @@ class _UserFormScreenState extends State<UserFormScreen> {
                   CustomFormField(
                     controller: _lastNameController,
                     label: AppStrings.lastNameLabel,
+                    hint: AppStrings.lastNameHint,
+                    icon: Icons.person_outline,
                     validator: (value) => FormValidators.validateName(
                       value,
-                      fieldName: 'apellido',
+                      fieldName: AppStrings.lastNameField,
                     ),
                     textInputAction: TextInputAction.next,
                   ),
@@ -94,36 +98,47 @@ class _UserFormScreenState extends State<UserFormScreen> {
                     onTap: () => _selectDate(context),
                   ),
                   const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_selectedDate != null &&
-                          !FormValidators.isAdult(_selectedDate!)) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(AppStrings.mustBeAdultError),
-                          ),
-                        );
-                        return;
-                      }
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.arrow_forward),
+                      label: Text(AppStrings.continueButtonLabel),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_selectedDate != null &&
+                            !FormValidators.isAdult(_selectedDate!)) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(AppStrings.mustBeAdultError),
+                            ),
+                          );
+                          return;
+                        }
 
-                      if (_formKey.currentState!.validate() &&
-                          _selectedDate != null) {
-                        context.read<UserBloc>().add(
-                              CreateUserEvent(
-                                firstName: _firstNameController.text,
-                                lastName: _lastNameController.text,
-                                birthDate: _selectedDate!,
-                              ),
-                            );
-                      } else if (_selectedDate == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(AppStrings.selectBirthDateError),
-                          ),
-                        );
-                      }
-                    },
-                    child: Text(AppStrings.continueButtonLabel),
+                        if (_formKey.currentState!.validate() &&
+                            _selectedDate != null) {
+                          context.read<UserBloc>().add(
+                                CreateUserEvent(
+                                  firstName: _firstNameController.text,
+                                  lastName: _lastNameController.text,
+                                  birthDate: _selectedDate!,
+                                ),
+                              );
+                        } else if (_selectedDate == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(AppStrings.selectBirthDateError),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

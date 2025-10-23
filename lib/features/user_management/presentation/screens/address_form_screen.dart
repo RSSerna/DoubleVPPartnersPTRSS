@@ -36,6 +36,11 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+          tooltip: AppStrings.backButtonLabel,
+        ),
         title: Text(AppStrings.addAddressTitle),
         actions: [
           TextButton(
@@ -61,61 +66,95 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
               key: _formKey,
               child: ListView(
                 children: [
-                  CustomFormField(
-                    controller: _countryController,
-                    label: AppStrings.countryLabel,
-                    validator: (value) => FormValidators.validateLocationField(
-                      value,
-                      fieldName: AppStrings.countryField,
+                  Card(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(height: 16),
-                  CustomFormField(
-                    controller: _departmentController,
-                    label: AppStrings.departmentLabel,
-                    validator: (value) => FormValidators.validateLocationField(
-                      value,
-                      fieldName: AppStrings.departmentField,
-                    ),
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(height: 16),
-                  CustomFormField(
-                    controller: _municipalityController,
-                    label: AppStrings.municipalityLabel,
-                    validator: (value) => FormValidators.validateLocationField(
-                      value,
-                      fieldName: AppStrings.municipalityField,
-                    ),
-                    textInputAction: TextInputAction.done,
-                  ),
-                  const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        final address = AddressEntity(
-                          country: _countryController.text,
-                          department: _departmentController.text,
-                          municipality: _municipalityController.text,
-                        );
-                        context
-                            .read<UserBloc>()
-                            .add(AddAddressEvent(address: address));
-
-                        // Clear the form
-                        _countryController.clear();
-                        _departmentController.clear();
-                        _municipalityController.clear();
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(AppStrings.addressAddedSuccess),
+                    margin: EdgeInsets.zero,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          CustomFormField(
+                            controller: _countryController,
+                            label: AppStrings.countryLabel,
+                            hint: AppStrings.countryHint,
+                            icon: Icons.public,
+                            validator: (value) =>
+                                FormValidators.validateLocationField(
+                              value,
+                              fieldName: AppStrings.countryField,
+                            ),
+                            textInputAction: TextInputAction.next,
                           ),
-                        );
-                      }
-                    },
-                    child: Text(AppStrings.addAddressButtonLabel),
+                          const SizedBox(height: 12),
+                          CustomFormField(
+                            controller: _departmentController,
+                            label: AppStrings.departmentLabel,
+                            hint: AppStrings.departmentHint,
+                            icon: Icons.map,
+                            validator: (value) =>
+                                FormValidators.validateLocationField(
+                              value,
+                              fieldName: AppStrings.departmentField,
+                            ),
+                            textInputAction: TextInputAction.next,
+                          ),
+                          const SizedBox(height: 12),
+                          CustomFormField(
+                            controller: _municipalityController,
+                            label: AppStrings.municipalityLabel,
+                            hint: AppStrings.municipalityHint,
+                            icon: Icons.location_city,
+                            validator: (value) =>
+                                FormValidators.validateLocationField(
+                              value,
+                              fieldName: AppStrings.municipalityField,
+                            ),
+                            textInputAction: TextInputAction.done,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      icon: const Icon(Icons.add_location),
+                      label: Text(AppStrings.addAddressButtonLabel),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          final address = AddressEntity(
+                            country: _countryController.text.trim(),
+                            department: _departmentController.text.trim(),
+                            municipality: _municipalityController.text.trim(),
+                          );
+                          context
+                              .read<UserBloc>()
+                              .add(AddAddressEvent(address: address));
+
+                          // Clear the form
+                          _countryController.clear();
+                          _departmentController.clear();
+                          _municipalityController.clear();
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(AppStrings.addressAddedSuccess),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

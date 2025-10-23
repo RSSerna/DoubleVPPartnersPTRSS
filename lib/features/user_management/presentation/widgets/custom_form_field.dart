@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class CustomFormField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
+  final String? hint;
+  final IconData? icon;
   final String? Function(String?) validator;
   final TextInputAction? textInputAction;
   final TextInputType? keyboardType;
@@ -13,6 +15,8 @@ class CustomFormField extends StatelessWidget {
     required this.controller,
     required this.label,
     required this.validator,
+    this.hint,
+    this.icon,
     this.textInputAction,
     this.keyboardType,
     this.onFieldSubmitted,
@@ -24,7 +28,14 @@ class CustomFormField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        border: const OutlineInputBorder(),
+        hintText: hint,
+        prefixIcon: icon != null ? Icon(icon) : null,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        filled: true,
+        fillColor:
+            Theme.of(context).inputDecorationTheme.fillColor ?? Colors.white,
       ),
       validator: validator,
       textInputAction: textInputAction,
