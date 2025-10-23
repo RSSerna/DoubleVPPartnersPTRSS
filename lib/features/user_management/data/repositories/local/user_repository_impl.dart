@@ -1,9 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:double_vp_partners_prueba_tecnica_ricardo_ss/core/error/failures.dart';
-import 'package:double_vp_partners_prueba_tecnica_ricardo_ss/features/user_management/data/datasources/user_local_data_source.dart';
-import 'package:double_vp_partners_prueba_tecnica_ricardo_ss/features/user_management/domain/entities/user_entity.dart';
 
+import '../../../../../core/constants/app_strings.dart';
+import '../../../../../core/error/error_handler.dart';
+import '../../../../../core/error/exceptions.dart';
+import '../../../../../core/error/failures.dart';
+import '../../../domain/entities/user_entity.dart';
 import '../../../domain/repositories/user_repository.dart';
+import '../../datasources/user_local_data_source.dart';
 import '../../models/user_model.dart';
 
 class UserRepositoryImpl implements UserRepository {
@@ -12,20 +15,38 @@ class UserRepositoryImpl implements UserRepository {
       : _localDataSource = localDataSource;
 
   @override
-  Future<Either<Failure, UserEntity>> createSaveUser(UserEntity user) {
+  Future<Either<Failure, UserEntity>> createSaveUser(UserEntity user) async {
     try {
-      final userModel = user as UserModel;
-      return _localDataSource
-          .saveCreateUser(userModel)
-          .then((_) => Right(userModel));
-    } catch (e) {
-      return Future.value(Left(StorageFailure(message: e.toString())));
+      final userModel = UserModel.fromEntity(user);
+      await _localDataSource.saveCreateUser(userModel);
+      return Right(userModel);
+    } on AppException catch (e, stackTrace) {
+      return Left(ErrorHandler.handleException(e, stackTrace));
+    } catch (e, stackTrace) {
+      return Left(UnexpectedFailure(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      ));
     }
   }
 
   @override
-  Future<Either<Failure, UserEntity>> loadUser() {
-    // TODO: implement loadUser
-    throw UnimplementedError();
+  Future<Either<Failure, UserEntity>> loadUser() async {
+    try {
+      final userModel = await _localDataSource.loadUser();
+      if (userModel == null) {
+        return Left(StorageFailure(
+          message: AppStrings.loadError,
+        ));
+      }
+      return Right(userModel);
+    } on AppException catch (e, stackTrace) {
+      return Left(ErrorHandler.handleException(e, stackTrace));
+    } catch (e, stackTrace) {
+      return Left(UnexpectedFailure(
+        message: e.toString(),
+        stackTrace: stackTrace,
+      ));
+    }
   }
 }
