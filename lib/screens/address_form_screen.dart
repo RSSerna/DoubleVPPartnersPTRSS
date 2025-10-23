@@ -5,6 +5,8 @@ import '../blocs/user_bloc.dart';
 import '../blocs/user_event.dart';
 import '../blocs/user_state.dart';
 import '../models/address.dart';
+import '../utils/form_validators.dart';
+import '../widgets/custom_form_field.dart';
 import 'user_details_screen.dart';
 
 class AddressFormScreen extends StatefulWidget {
@@ -62,46 +64,34 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
               key: _formKey,
               child: ListView(
                 children: [
-                  TextFormField(
+                  CustomFormField(
                     controller: _countryController,
-                    decoration: const InputDecoration(
-                      labelText: 'País',
-                      border: OutlineInputBorder(),
+                    label: 'País',
+                    validator: (value) => FormValidators.validateLocationField(
+                      value,
+                      fieldName: 'país',
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese el país';
-                      }
-                      return null;
-                    },
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 16),
-                  TextFormField(
+                  CustomFormField(
                     controller: _departmentController,
-                    decoration: const InputDecoration(
-                      labelText: 'Departamento',
-                      border: OutlineInputBorder(),
+                    label: 'Departamento',
+                    validator: (value) => FormValidators.validateLocationField(
+                      value,
+                      fieldName: 'departamento',
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese el departamento';
-                      }
-                      return null;
-                    },
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 16),
-                  TextFormField(
+                  CustomFormField(
                     controller: _municipalityController,
-                    decoration: const InputDecoration(
-                      labelText: 'Municipio',
-                      border: OutlineInputBorder(),
+                    label: 'Municipio',
+                    validator: (value) => FormValidators.validateLocationField(
+                      value,
+                      fieldName: 'municipio',
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese el municipio';
-                      }
-                      return null;
-                    },
+                    textInputAction: TextInputAction.done,
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(

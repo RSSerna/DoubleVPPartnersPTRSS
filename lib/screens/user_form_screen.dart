@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import '../blocs/user_bloc.dart';
 import '../blocs/user_event.dart';
 import '../blocs/user_state.dart';
+import '../utils/form_validators.dart';
+import '../widgets/custom_form_field.dart';
 import 'address_form_screen.dart';
 
 class UserFormScreen extends StatefulWidget {
@@ -69,32 +71,21 @@ class _UserFormScreenState extends State<UserFormScreen> {
               key: _formKey,
               child: ListView(
                 children: [
-                  TextFormField(
+                  CustomFormField(
                     controller: _firstNameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Nombre',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese su nombre';
-                      }
-                      return null;
-                    },
+                    label: 'Nombre',
+                    validator: (value) => FormValidators.validateName(value),
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 16),
-                  TextFormField(
+                  CustomFormField(
                     controller: _lastNameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Apellido',
-                      border: OutlineInputBorder(),
+                    label: 'Apellido',
+                    validator: (value) => FormValidators.validateName(
+                      value,
+                      fieldName: 'apellido',
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingrese su apellido';
-                      }
-                      return null;
-                    },
+                    textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 16),
                   ListTile(
@@ -109,6 +100,16 @@ class _UserFormScreenState extends State<UserFormScreen> {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
+                      if (_selectedDate != null &&
+                          !FormValidators.isAdult(_selectedDate!)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Debes ser mayor de 18 años'),
+                          ),
+                        );
+                        return;
+                      }
+
                       if (_formKey.currentState!.validate() &&
                           _selectedDate != null) {
                         context.read<UserBloc>().add(
