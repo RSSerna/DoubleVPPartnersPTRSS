@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../models/address.dart';
-import '../models/user.dart';
+import '../../domain/entities/address_entity.dart';
+import '../../domain/entities/user_entity.dart';
 
 abstract class UserEvent extends Equatable {
   const UserEvent();
@@ -10,12 +10,12 @@ abstract class UserEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class CreateUser extends UserEvent {
+class CreateUserEvent extends UserEvent {
   final String firstName;
   final String lastName;
   final DateTime birthDate;
 
-  const CreateUser({
+  const CreateUserEvent({
     required this.firstName,
     required this.lastName,
     required this.birthDate,
@@ -25,17 +25,17 @@ class CreateUser extends UserEvent {
   List<Object?> get props => [firstName, lastName, birthDate];
 }
 
-class AddAddress extends UserEvent {
-  final Address address;
+class AddAddressEvent extends UserEvent {
+  final AddressEntity address;
 
-  const AddAddress({required this.address});
+  const AddAddressEvent({required this.address});
 
   @override
   List<Object?> get props => [address];
 }
 
 class UpdateUser extends UserEvent {
-  final User user;
+  final UserEntity user;
 
   const UpdateUser({required this.user});
 

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../blocs/user_bloc.dart';
-import '../blocs/user_state.dart';
-import '../constants/app_strings.dart';
-import '../models/address.dart';
+import '../../../../core/constants/app_strings.dart';
+import '../../domain/entities/address_entity.dart';
+import '../bloc/user_bloc.dart';
+import '../bloc/user_state.dart';
 
 class UserDetailsScreen extends StatelessWidget {
   const UserDetailsScreen({super.key});
@@ -44,7 +44,7 @@ class UserDetailsScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: user.addresses.length,
                       itemBuilder: (context, index) {
-                        final Address address = user.addresses[index];
+                        final AddressEntity address = user.addresses[index];
                         return Card(
                           child: ListTile(
                             title: Text(address.country),

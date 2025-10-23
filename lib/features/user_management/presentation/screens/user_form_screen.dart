@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../blocs/user_bloc.dart';
-import '../blocs/user_event.dart';
-import '../blocs/user_state.dart';
-import '../constants/app_strings.dart';
-import '../utils/form_validators.dart';
-import '../widgets/custom_form_field.dart';
-import 'address_form_screen.dart';
+import '../../../../core/constants/app_strings.dart';
+import '../../../../core/utils/form_validators.dart';
+import '../../user_management.dart';
+import '../bloc/user_event.dart';
 
 class UserFormScreen extends StatefulWidget {
   const UserFormScreen({super.key});
@@ -114,7 +111,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
                       if (_formKey.currentState!.validate() &&
                           _selectedDate != null) {
                         context.read<UserBloc>().add(
-                              CreateUser(
+                              CreateUserEvent(
                                 firstName: _firstNameController.text,
                                 lastName: _lastNameController.text,
                                 birthDate: _selectedDate!,

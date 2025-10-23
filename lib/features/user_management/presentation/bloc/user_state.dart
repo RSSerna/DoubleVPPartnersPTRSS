@@ -1,6 +1,5 @@
+import 'package:double_vp_partners_prueba_tecnica_ricardo_ss/features/user_management/domain/entities/user_entity.dart';
 import 'package:equatable/equatable.dart';
-
-import '../models/user.dart';
 
 abstract class UserState extends Equatable {
   const UserState();
@@ -14,7 +13,7 @@ class UserInitial extends UserState {}
 class UserLoading extends UserState {}
 
 class UserLoaded extends UserState {
-  final User user;
+  final UserEntity user;
 
   const UserLoaded(this.user);
 

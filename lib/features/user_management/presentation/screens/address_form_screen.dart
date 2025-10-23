@@ -1,12 +1,12 @@
+import 'package:double_vp_partners_prueba_tecnica_ricardo_ss/features/user_management/presentation/bloc/user_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/user_bloc.dart';
-import '../blocs/user_event.dart';
-import '../blocs/user_state.dart';
-import '../constants/app_strings.dart';
-import '../models/address.dart';
-import '../utils/form_validators.dart';
+import '../../../../core/constants/app_strings.dart';
+import '../../../../core/utils/form_validators.dart';
+import '../../domain/entities/address_entity.dart';
+import '../bloc/user_bloc.dart';
+import '../bloc/user_state.dart';
 import '../widgets/custom_form_field.dart';
 import 'user_details_screen.dart';
 
@@ -98,14 +98,14 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        final address = Address(
+                        final address = AddressEntity(
                           country: _countryController.text,
                           department: _departmentController.text,
                           municipality: _municipalityController.text,
                         );
                         context
                             .read<UserBloc>()
-                            .add(AddAddress(address: address));
+                            .add(AddAddressEvent(address: address));
 
                         // Clear the form
                         _countryController.clear();

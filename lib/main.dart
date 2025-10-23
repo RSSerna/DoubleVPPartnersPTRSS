@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'blocs/user_bloc.dart';
-import 'constants/app_strings.dart';
-import 'screens/user_form_screen.dart';
+import 'core/core.dart';
+import 'core/di/dependency_injection.dart' as di;
+import 'features/user_management/user_management.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.configureDependencies();
   runApp(const MyApp());
 }
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => UserBloc(),
+      create: (_) => getIt<UserBloc>(),
       child: MaterialApp(
         title: AppStrings.appTitle,
         theme: ThemeData(
