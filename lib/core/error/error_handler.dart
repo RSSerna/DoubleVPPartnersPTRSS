@@ -7,22 +7,22 @@ class ErrorHandler {
   static Failure handleException(AppException exception,
       [StackTrace? stackTrace]) {
     switch (exception.runtimeType) {
-      case ValidationException _:
+      case const (ValidationException):
         return ValidationFailure(
           message: exception.message,
           stackTrace: stackTrace,
         );
-      case StorageException _:
+      case const (StorageException):
         return StorageFailure(
           message: exception.message,
           stackTrace: stackTrace,
         );
-      case NetworkException _:
+      case const (NetworkException):
         return NetworkFailure(
           message: exception.message,
           stackTrace: stackTrace,
         );
-      case NotFoundException _:
+      case const (NotFoundException):
         return NotFoundFailure(
           message: exception.message,
           stackTrace: stackTrace,

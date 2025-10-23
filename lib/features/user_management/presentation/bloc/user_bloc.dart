@@ -26,9 +26,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future<void> _loadCachedUser() async {
+    print('Loading cached user...');
     final cached = await _loadUserUseCase(NoParams());
     cached.fold((_) => null, (user) {
       _user = user;
+      print('User Loaded');
       add(UpdateUser(user: user));
     });
   }
