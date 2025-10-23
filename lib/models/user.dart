@@ -39,23 +39,29 @@ class User extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
-      'birthDate': birthDate.toIso8601String(),
-      'addresses': addresses.map((address) => address.toJson()).toList(),
+      _id: id,
+      _firstName: firstName,
+      _lastName: lastName,
+      _birthDate: birthDate.toIso8601String(),
+      _addresses: addresses.map((address) => address.toJson()).toList(),
     };
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'] as String,
-      firstName: json['firstName'] as String,
-      lastName: json['lastName'] as String,
-      birthDate: DateTime.parse(json['birthDate'] as String),
-      addresses: (json['addresses'] as List)
+      id: json[_id] as String,
+      firstName: json[_firstName] as String,
+      lastName: json[_lastName] as String,
+      birthDate: DateTime.parse(json[_birthDate] as String),
+      addresses: (json[_addresses] as List)
           .map((address) => Address.fromJson(address as Map<String, dynamic>))
           .toList(),
     );
   }
+
+  static const String _id = 'id';
+  static const String _firstName = 'firstName';
+  static const String _lastName = 'lastName';
+  static const String _birthDate = 'birthDate';
+  static const String _addresses = 'addresses';
 }

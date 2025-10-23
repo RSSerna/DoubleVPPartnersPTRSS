@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../blocs/user_bloc.dart';
 import '../blocs/user_event.dart';
 import '../blocs/user_state.dart';
+import '../constants/app_strings.dart';
 import '../utils/form_validators.dart';
 import '../widgets/custom_form_field.dart';
 import 'address_form_screen.dart';
@@ -47,7 +48,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Crear Usuario'),
+        title: Text(AppStrings.createUserTitle),
       ),
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {
@@ -73,14 +74,14 @@ class _UserFormScreenState extends State<UserFormScreen> {
                 children: [
                   CustomFormField(
                     controller: _firstNameController,
-                    label: 'Nombre',
+                    label: AppStrings.firstNameLabel,
                     validator: (value) => FormValidators.validateName(value),
                     textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 16),
                   CustomFormField(
                     controller: _lastNameController,
-                    label: 'Apellido',
+                    label: AppStrings.lastNameLabel,
                     validator: (value) => FormValidators.validateName(
                       value,
                       fieldName: 'apellido',

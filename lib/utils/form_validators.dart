@@ -1,28 +1,38 @@
+import '../constants/app_strings.dart';
+
 class FormValidators {
   static String? validateName(String? value,
-      {String fieldName = 'nombre', int minLength = 2}) {
+      {String fieldName = AppStrings.firstNameField, int minLength = 2}) {
     if (value == null || value.isEmpty) {
-      return 'Por favor ingrese su $fieldName';
+      return AppStrings.enterNameError
+          .replaceAll(AppStrings.fieldPlaceholder, fieldName);
     }
     if (!RegExp(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$').hasMatch(value)) {
-      return 'El $fieldName solo debe contener letras';
+      return AppStrings.onlyLettersError
+          .replaceAll(AppStrings.fieldPlaceholder, fieldName);
     }
     if (value.length < minLength) {
-      return 'El $fieldName debe tener al menos $minLength caracteres';
+      return AppStrings.minLengthError
+          .replaceAll(AppStrings.fieldPlaceholder, fieldName)
+          .replaceAll(AppStrings.fieldPlaceholder2, minLength.toString());
     }
     return null;
   }
 
   static String? validateLocationField(String? value,
-      {String fieldName = 'campo', int minLength = 3}) {
+      {String fieldName = AppStrings.genericFieldLabel, int minLength = 3}) {
     if (value == null || value.isEmpty) {
-      return 'Por favor ingrese el $fieldName';
+      return AppStrings.enterNameError
+          .replaceAll(AppStrings.fieldPlaceholder, fieldName);
     }
     if (!RegExp(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$').hasMatch(value)) {
-      return 'El $fieldName solo debe contener letras';
+      return AppStrings.onlyLettersError
+          .replaceAll(AppStrings.fieldPlaceholder, fieldName);
     }
     if (value.length < minLength) {
-      return 'El $fieldName debe tener al menos $minLength caracteres';
+      return AppStrings.minLengthError
+          .replaceAll(AppStrings.fieldPlaceholder, fieldName)
+          .replaceAll(AppStrings.fieldPlaceholder2, minLength.toString());
     }
     return null;
   }

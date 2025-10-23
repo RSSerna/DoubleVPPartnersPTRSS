@@ -32,19 +32,24 @@ class Address extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'country': country,
-      'department': department,
-      'municipality': municipality,
+      _id: id,
+      _country: country,
+      _department: department,
+      _municipality: municipality,
     };
   }
 
   factory Address.fromJson(Map<String, dynamic> json) {
     return Address(
-      id: json['id'] as String,
-      country: json['country'] as String,
-      department: json['department'] as String,
-      municipality: json['municipality'] as String,
+      id: json[_id] as String,
+      country: json[_country] as String,
+      department: json[_department] as String,
+      municipality: json[_municipality] as String,
     );
   }
+
+  static const String _id = 'id';
+  static const String _country = 'country';
+  static const String _department = 'department';
+  static const String _municipality = 'municipality';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../constants/app_strings.dart';
 import '../models/user.dart';
 import '../repositories/user_repository.dart';
 import 'user_event.dart';
@@ -47,7 +48,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _onAddAddress(AddAddress event, Emitter<UserState> emit) {
     try {
       if (_user == null) {
-        throw Exception('User not created yet');
+        throw Exception(AppStrings.userNotCreatedError);
       }
       emit(UserLoading());
       final updatedAddresses = [..._user!.addresses, event.address];

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../blocs/user_bloc.dart';
 import '../blocs/user_state.dart';
+import '../constants/app_strings.dart';
 import '../models/address.dart';
 
 class UserDetailsScreen extends StatelessWidget {
@@ -13,7 +14,7 @@ class UserDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalles del Usuario'),
+        title: Text(AppStrings.userDetailsTitle),
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
@@ -30,12 +31,12 @@ class UserDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Fecha de nacimiento: ${DateFormat('dd/MM/yyyy').format(user.birthDate)}',
+                    '${AppStrings.dateFormatLabel}${DateFormat(AppStrings.dateFormat).format(user.birthDate)}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Direcciones:',
+                    AppStrings.addressesLabel,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),

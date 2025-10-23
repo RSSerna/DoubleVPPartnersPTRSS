@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/user_bloc.dart';
+import 'constants/app_strings.dart';
 import 'screens/user_form_screen.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (_) => UserBloc(),
       child: MaterialApp(
-        title: 'User Registration App',
+        title: AppStrings.appTitle,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,

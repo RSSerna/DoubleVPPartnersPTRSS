@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/user_bloc.dart';
 import '../blocs/user_event.dart';
 import '../blocs/user_state.dart';
+import '../constants/app_strings.dart';
 import '../models/address.dart';
 import '../utils/form_validators.dart';
 import '../widgets/custom_form_field.dart';
@@ -34,7 +35,7 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agregar Dirección'),
+        title: Text(AppStrings.addAddressTitle),
         actions: [
           TextButton(
             onPressed: () {
@@ -45,7 +46,7 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
                 ),
               );
             },
-            child: const Text('Ver Detalles'),
+            child: Text(AppStrings.viewDetailsButtonLabel),
           ),
         ],
       ),
@@ -66,30 +67,30 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
                 children: [
                   CustomFormField(
                     controller: _countryController,
-                    label: 'País',
+                    label: AppStrings.countryLabel,
                     validator: (value) => FormValidators.validateLocationField(
                       value,
-                      fieldName: 'país',
+                      fieldName: AppStrings.countryField,
                     ),
                     textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 16),
                   CustomFormField(
                     controller: _departmentController,
-                    label: 'Departamento',
+                    label: AppStrings.departmentLabel,
                     validator: (value) => FormValidators.validateLocationField(
                       value,
-                      fieldName: 'departamento',
+                      fieldName: AppStrings.departmentField,
                     ),
                     textInputAction: TextInputAction.next,
                   ),
                   const SizedBox(height: 16),
                   CustomFormField(
                     controller: _municipalityController,
-                    label: 'Municipio',
+                    label: AppStrings.municipalityLabel,
                     validator: (value) => FormValidators.validateLocationField(
                       value,
-                      fieldName: 'municipio',
+                      fieldName: AppStrings.municipalityField,
                     ),
                     textInputAction: TextInputAction.done,
                   ),
@@ -113,12 +114,12 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Dirección agregada exitosamente'),
+                            content: Text(AppStrings.addressAddedSuccess),
                           ),
                         );
                       }
                     },
-                    child: const Text('Agregar Dirección'),
+                    child: Text(AppStrings.addAddressButtonLabel),
                   ),
                 ],
               ),
