@@ -18,13 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<UserBloc>(),
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: AppStrings.appTitle,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
-        home: const UserFormScreen(),
+        routerConfig: AppRouter.router,
       ),
     );
   }

@@ -1,14 +1,15 @@
 import 'package:double_vp_partners_prueba_tecnica_ricardo_ss/features/user_management/presentation/bloc/user_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/form_validators.dart';
 import '../../domain/entities/address_entity.dart';
 import '../bloc/user_bloc.dart';
 import '../bloc/user_state.dart';
 import '../widgets/custom_form_field.dart';
-import 'user_details_screen.dart';
 
 class AddressFormScreen extends StatefulWidget {
   const AddressFormScreen({super.key});
@@ -39,12 +40,7 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const UserDetailsScreen(),
-                ),
-              );
+              context.go(AppRouter.userDetails);
             },
             child: Text(AppStrings.viewDetailsButtonLabel),
           ),
